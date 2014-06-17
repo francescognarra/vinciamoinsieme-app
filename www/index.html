@@ -19,8 +19,8 @@
         <script type="text/javascript" src="js/auth.js"></script>
         <script type="text/javascript">
 
-            var host = "www.vinciamoinsieme.com";
-//            var host = "localhost:3000";
+//            var host = "www.vinciamoinsieme.com";
+            var host = "localhost:3001";
 
             $(document).on({
                 ajaxStart: function() {
@@ -88,7 +88,11 @@
                 </ul>
             </div><!-- /panel -->
             <div data-role="panel" data-position="right" data-display="reveal" data-theme="a" id="add-form" >
-                <h2 class="user_nickname"></h2>
+                <div class="logout">
+                    <h2 class="user_nickname"></h2>
+                    <img src="#" class="user_photo" />
+                    <a data-role="button" href="#" data-rel="close" class="logout_button ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Logout</a>
+                </div>
                 <form class="userform">
                     <h2>Login</h2>
                     <label for="email">Email:</label>
@@ -98,7 +102,7 @@
                     <div class="ui-grid-a">
                         <div class="ui-block-a"><a href="#" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-mini">Cancel</a></div>
                         <div class="ui-block-b">
-                            <a id="login_button" data-role="button" href="#" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Login</a></div>
+                            <a id="login_button" data-role="button" href="#" data-rel="close" class="login_button ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Login</a></div>
                     </div>
                 </form>
             </div><!-- /panel -->
@@ -128,16 +132,21 @@
                 </ul>
             </div><!-- /panel -->
             <div data-role="panel" data-position="right" data-display="reveal" data-theme="a" id="add-form" >
-                <h2 class="user_nickname"></h2>
+                <div class="logout">
+                    <h2 class="user_nickname"></h2>
+                    <img src="#" class="user_photo" />
+                    <a data-role="button" href="#" data-rel="close" class="logout_button ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Logout</a>
+                </div>
                 <form class="userform">
                     <h2>Login</h2>
-                    <label for="name">Email:</label>
-                    <input name="name" id="name" value="" data-clear-btn="true" data-mini="true" type="text">
+                    <label for="email">Email:</label>
+                    <input name="email" id="email" value="" data-clear-btn="true" data-mini="true" type="text">
                     <label for="password">Password:</label>
                     <input name="password" id="password" value="" data-clear-btn="true" autocomplete="off" data-mini="true" type="password">
                     <div class="ui-grid-a">
                         <div class="ui-block-a"><a href="#" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-mini">Cancel</a></div>
-                        <div class="ui-block-b"><a href="#" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Save</a></div>
+                        <div class="ui-block-b">
+                            <a id="login_button" data-role="button" href="#" data-rel="close" class="login_button ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Login</a></div>
                     </div>
                 </form>
             </div><!-- /panel -->

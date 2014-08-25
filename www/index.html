@@ -83,6 +83,7 @@
                 <ul data-role="listview">
                     <li data-icon="delete"><a href="#" data-rel="close">Chiudi menu</a></li>
                     <li><a href="#results">Ultime scommesse</a></li>
+                    <li><a href="#matches">Scommetti</a></li>
                     <li data-icon="delete"><a class="exit_btn">Esci</a></li>
 
                 </ul>
@@ -123,6 +124,108 @@
                 <ul id="showList" data-role="listview" data-filter-placeholder="Cerca..."
                     data-inset="true" data-filter="true" data-input="#filter-for-listview">
                 </ul>
+            </div>
+            <div data-role="panel" data-display="overlay" data-theme="b" id="nav-panel" >
+                <ul data-role="listview">
+                    <li data-icon="delete"><a href="#" data-rel="close">Chiudi menu</a></li>
+                    <li data-icon="home" data-iconpos="left"><a href="#home">Home</a></li>
+                    <li><a href="#matches">Scommetti</a></li>
+                    <li data-icon="delete"><a class="exit_btn">Esci</a></li>
+                </ul>
+            </div><!-- /panel -->
+            <div data-role="panel" data-position="right" data-display="reveal" data-theme="a" id="add-form" >
+                <div class="logout">
+                    <h2 class="user_nickname"></h2>
+                    <img src="#" class="user_photo" />
+                    <a data-role="button" href="#" data-rel="close" class="logout_button ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Logout</a>
+                </div>
+                <form class="userform">
+                    <h2>Login</h2>
+                    <label for="email">Email:</label>
+                    <input name="email" id="email" value="" data-clear-btn="true" data-mini="true" type="text">
+                    <label for="password">Password:</label>
+                    <input name="password" id="password" value="" data-clear-btn="true" autocomplete="off" data-mini="true" type="password">
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a"><a href="#" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-mini">Cancel</a></div>
+                        <div class="ui-block-b">
+                            <a id="login_button" data-role="button" href="#" data-rel="close" class="login_button ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Login</a></div>
+                    </div>
+                </form>
+            </div><!-- /panel -->
+            <div data-role="footer"
+                 data-position="fixed">
+                <h4>&copy;</h4>
+            </div>
+        </div>
+        <!-- Page Matches -->
+        <div data-role="page" id="matches">   
+            <div data-role="header">     
+                <h1>Vinciamoinsieme</h1>
+                <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
+                <a href="#add-form" data-icon="gear" data-iconpos="notext">Add</a>
+            </div>
+            <div data-role="content">
+                <h2>Prossime partite</h2>
+                <ul id="showMatchesList" data-role="listview" data-filter-placeholder="Cerca..."
+                    data-inset="true" data-filter="true" data-input="#filter-for-listview">
+                </ul>
+            </div>
+            <div data-role="panel" data-display="overlay" data-theme="b" id="nav-panel" >
+                <ul data-role="listview">
+                    <li data-icon="delete"><a href="#" data-rel="close">Chiudi menu</a></li>
+                    <li data-icon="home" data-iconpos="left"><a href="#home">Home</a></li>
+                    <li data-icon="delete"><a class="exit_btn">Esci</a></li>
+                </ul>
+            </div><!-- /panel -->
+            <div data-role="panel" data-position="right" data-display="reveal" data-theme="a" id="add-form" >
+                <div class="logout">
+                    <h2 class="user_nickname"></h2>
+                    <img src="#" class="user_photo" />
+                    <a data-role="button" href="#" data-rel="close" class="logout_button ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Logout</a>
+                </div>
+                <form class="userform">
+                    <h2>Login</h2>
+                    <label for="email">Email:</label>
+                    <input name="email" id="email" value="" data-clear-btn="true" data-mini="true" type="text">
+                    <label for="password">Password:</label>
+                    <input name="password" id="password" value="" data-clear-btn="true" autocomplete="off" data-mini="true" type="password">
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a"><a href="#" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-mini">Cancel</a></div>
+                        <div class="ui-block-b">
+                            <a id="login_button" data-role="button" href="#" data-rel="close" class="login_button ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Login</a></div>
+                    </div>
+                </form>
+            </div><!-- /panel -->
+            <div data-role="footer"
+                 data-position="fixed">
+                <h4>&copy;</h4>
+            </div>
+        </div>
+        <!-- Page Match Bet -->
+        <div data-role="page" id="match_bet">   
+            <div data-role="header">     
+                <h1>Vinciamoinsieme</h1>
+                <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
+                <a href="#add-form" data-icon="gear" data-iconpos="notext">Add</a>
+            </div>
+            <div data-role="content">
+                <h2 id="showMatch"></h2>
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <legend>Scegli un pronostico:</legend>
+                        <input type="radio" name="radio-choice-2" id="radio-choice-1" value="choice-1" checked="checked">
+                        <label for="radio-choice-1">1</label>
+                        <input type="radio" name="radio-choice-2" id="radio-choice-2" value="choice-2">
+                        <label for="radio-choice-2">X</label>
+                        <input type="radio" name="radio-choice-2" id="radio-choice-3" value="choice-3">
+                        <label for="radio-choice-3">2</label>
+                        <input type="radio" name="radio-choice-2" id="radio-choice-4" value="choice-4">
+                        <label for="radio-choice-4">UNDER 2,5</label>
+                        <input type="radio" name="radio-choice-2" id="radio-choice-5" value="choice-5">
+                        <label for="radio-choice-5">OVER 2,5</label>
+                    </fieldset>
+                </div>
+                <a href="#matches" data-role="button" data-icon="arrow-l">Torna alle partite</a>
             </div>
             <div data-role="panel" data-display="overlay" data-theme="b" id="nav-panel" >
                 <ul data-role="listview">
@@ -189,6 +292,41 @@
             };
             $('.exit_btn').click(function() {
                 navigator.app.exitApp();
+            });
+
+        </script>
+        <script>
+            $("#matches").bind("pagecreate", function(e) {
+                getNextMatches();
+                $('#showMatchesList').on('tap', 'li', function() {
+                    localStorage.setItem("showMatch",
+                            $(this).attr('data-show-match'));
+                    $.mobile.changePage('#match_bet');
+                });
+            });
+            var getNextMatches = function() {
+                var listItem = '';
+                var apiURL = 'http://' + host + '/leagues/1/next_matches.json?callback=?';
+                $.getJSON(apiURL, function(data) {
+                    $.each(data, function(key, value) {
+                        var day = value.day;
+                        var time = value.time;
+                        var home = value.home;
+                        var away = value.away;
+                        var result = value.result;
+                        listItem += '<li data-show-match="' + home + ' - ' + away + '"><a href="#"><h3>' + home + ' - ' + away + '</h3></a></li>';
+                    });
+                    $('#showMatchesList').append(listItem);
+                    $("#showMatchesList").listview("refresh");
+                });
+            };
+            $('.exit_btn').click(function() {
+                navigator.app.exitApp();
+            });
+
+            $("#match_bet").bind("pagebeforeshow", function(e) {
+                var showMatch = localStorage.getItem("showMatch");
+                $('#showMatch').html(showMatch);
             });
 
         </script>

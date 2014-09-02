@@ -19,9 +19,9 @@
         <script type="text/javascript" src="js/auth.js"></script>
         <script type="text/javascript">
 
-            var host = "www.vinciamoinsieme.com";
+//            var host = "www.vinciamoinsieme.com";
 //            var host = "162.248.141.121:3000";
-//            var host = "localhost:3001";
+            var host = "localhost:3000";
 
             $(document).on({
                 ajaxStart: function() {
@@ -212,18 +212,19 @@
             <div data-role="content">
                 <h2 id="showMatch"></h2>
                 <div data-role="fieldcontain">
-                    <fieldset data-role="controlgroup">
-                        <legend>Scegli un pronostico:</legend>
-                        <input type="radio" name="radio-choice-2" id="radio-choice-1" value="choice-1" checked="checked">
-                        <label for="radio-choice-1">1</label>
-                        <input type="radio" name="radio-choice-2" id="radio-choice-2" value="choice-2">
-                        <label for="radio-choice-2">X</label>
-                        <input type="radio" name="radio-choice-2" id="radio-choice-3" value="choice-3">
-                        <label for="radio-choice-3">2</label>
-                        <input type="radio" name="radio-choice-2" id="radio-choice-4" value="choice-4">
-                        <label for="radio-choice-4">UNDER 2,5</label>
-                        <input type="radio" name="radio-choice-2" id="radio-choice-5" value="choice-5">
-                        <label for="radio-choice-5">OVER 2,5</label>
+                    <fieldset data-role="controlgroup" id="bets_fieldset">
+                        <div id="bets_list">
+                        <!--<input type="radio" name="radio-choice-1" id="radio-choice-1" value="choice-1" checked="checked">-->
+                        <!--<label for="radio-choice-1">1</label>-->
+                        <!--<input type="radio" name="radio-choice-2" id="radio-choice-2" value="choice-2">-->
+                        <!--<label for="radio-choice-2">X</label>-->
+                        <!--<input type="radio" name="radio-choice-3" id="radio-choice-3" value="choice-3">-->
+                        <!--<label for="radio-choice-3">2</label>-->
+                        <!--<input type="radio" name="radio-choice-4" id="radio-choice-4" value="choice-4">-->
+                        <!--<label for="radio-choice-4">UNDER 2,5</label>-->
+                        <!--<input type="radio" name="radio-choice-5" id="radio-choice-5" value="choice-5">-->
+                        <!--<label for="radio-choice-5">OVER 2,5</label>-->
+                        <!--</div>-->
                     </fieldset>
                 </div>
                 <a href="#matches" data-role="button" data-icon="arrow-l">Torna alle partite</a>
@@ -328,8 +329,39 @@
             $("#match_bet").bind("pagebeforeshow", function(e) {
                 var showMatch = localStorage.getItem("showMatch");
                 $('#showMatch').html(showMatch);
+                getBets();
+
             });
 
+            //Caricamento tipologie pronostici (1,x,2,under ....)
+//            $("#match_bet").bind("pagecreate", function(e) {
+//                getBets();
+//            });
+            var getBets = function() {
+                var apiURL = 'http://' + host + '/bets.json?callback=?';
+                var betsList = '<fieldset data-role="controlgroup"><legend>Scegli un pronostico:</legend>';
+                $.getJSON(apiURL, function(data) {
+                    $.each(data, function(key, value) {
+                        var id = value.id;
+                        var title = value.title;
+
+                        betsList += '<input type="radio" name="radio-choice" id="radio-choice-'+id+'" value="choice-'+id+'" /><label for="radio-choice-'+id+'">'+title+'</label>';
+//                        betsList += '<fieldset data-role="controlgroup"><legend>Choose a pet:</legend><input type="radio" name="radio-choice" id="radio-choice-1" value="choice-1" checked="checked" /><label for="radio-choice-1">Cat</label><input type="radio" name="radio-choice" id="radio-choice-2" value="choice-2"  /><label for="radio-choice-2">Dog</label></fieldset>';
+
+                    });
+//                    x += '<input type="radio" name="radio-choice" id="radio-choice-1" value="choice-1" checked="checked" /><label for="radio-choice-1">Cat</label><input type="radio" name="radio-choice" id="radio-choice-2" value="choice-2"  /><label for="radio-choice-2">Dog</label></fieldset>';
+                    $('#bets_list').append(betsList);
+//                    $('[type="radio"]').each(function( index ) {
+//                        $(this).checkboxradio();
+//                    });
+                    $('[type="radio"]').checkboxradio();
+//                    $("#bet_id").checkboxradio("refresh");
+                });
+
+            };
+            $('.exit_btn').click(function() {
+                navigator.app.exitApp();
+            });
         </script>
     </body>
 </html>

@@ -1,11 +1,11 @@
 $(document).ready(function() {
-    if (localStorage.getItem("auth_token") != null) {
-        $.mobile.changePage('index.html', 'slideUp');
-        $('.user_nickname').append("Bentornato " + localStorage.getItem("nickname"));
-        $('.userform').hide();
-    } else {
-        $('.logout').hide();
-    }
+//    if (localStorage.getItem("auth_token") != null) {
+//        $.mobile.changePage('index.html', 'slideUp');
+//        $('.user_nickname').append("Bentornato " + localStorage.getItem("nickname"));
+//        $('.userform').hide();
+//    } else {
+//        $('.logout').hide();
+//    }
 
     $('.login_button').click(function() {
         $.mobile.showPageLoadingMsg();

@@ -14,6 +14,14 @@
         type="text/javascript"></script>
         <script src="jquery.mobile-1.3.2/jquery.mobile-1.3.2.min.js"
         type="text/javascript"></script>
+<!--        <script type="text/javascript">
+            $(document).on('pagebeforecreate', '#home, #results, #matches, #match_bet', function() {
+                $('<div>').attr({'data-role': 'header'}).append('<h1>Vinciamoinsieme</h1><a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a><a href="#add-form" data-icon="gear" data-iconpos="notext">Add</a>').prependTo($(this));
+                $('<div>').attr({'data-role': 'footer', 'data-position': 'fixed'}).append('<h4>&copy;</h4>').appendTo($(this));
+                $('<div>').attr({'data-role': 'panel', 'data-display': 'overlay', 'data-theme': 'b', 'id': 'nav-panel'}).append('<ul data-role="listview"><li data-icon="delete"><a href="#" data-rel="close">Chiudi menu</a></li><li data-icon="home" data-iconpos="left"><a href="#home">Home</a></li><li><a href="#results">Ultime scommesse</a></li><li><a href="#matches">Scommetti</a></li><li data-icon="delete"><a class="exit_btn">Esci</a></li></ul>').appendTo($(this));
+                $('<div>').attr({'data-role': 'panel', 'data-position': 'right', 'data-display': 'reveal', 'data-theme': 'a', 'id': 'add-form'}).append('<div class="logout"><h2 class="user_nickname"></h2><img src="#" class="user_photo" /><a data-role="button" href="#" data-rel="close" class="logout_button ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Logout</a></div><form class="userform"><h2>Login</h2><label for="email">Email:</label><input name="email" id="email" value="" data-clear-btn="true" data-mini="true" type="text"><label for="password">Password:</label><input name="password" id="password" value="" data-clear-btn="true" autocomplete="off" data-mini="true" type="password"><div class="ui-grid-a"><div class="ui-block-a"><a href="#" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-mini">Cancel</a></div><div class="ui-block-b"><a id="login_button" data-role="button" href="#" data-rel="close" class="login_button ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Login</a></div></div></form>').appendTo($(this));
+            });
+        </script>-->
         <script type="text/javascript" src="phonegap.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/auth.js"></script>
@@ -56,13 +64,6 @@
                 }
             }
 
-            $(document).on('pagebeforecreate', '#home, #results, #matches, #match_bet', function() {
-                $('<div>').attr({'data-role': 'header'}).append('<h1>Vinciamoinsieme</h1><a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a><a href="#add-form" data-icon="gear" data-iconpos="notext">Add</a>').prependTo($(this));
-                $('<div>').attr({'data-role': 'footer', 'data-position': 'fixed'}).append('<h4>&copy;</h4>').appendTo($(this));
-                $('<div>').attr({'data-role': 'panel', 'data-display': 'overlay', 'data-theme': 'b', 'id': 'nav-panel'}).append('<ul data-role="listview"><li data-icon="delete"><a href="#" data-rel="close">Chiudi menu</a></li><li data-icon="home" data-iconpos="left"><a href="#home">Home</a></li><li><a href="#results">Ultime scommesse</a></li><li><a href="#matches">Scommetti</a></li><li data-icon="delete"><a class="exit_btn">Esci</a></li></ul>').appendTo($(this));
-                $('<div>').attr({'data-role': 'panel', 'data-position': 'right', 'data-display': 'reveal', 'data-theme': 'a', 'id': 'add-form'}).append('<div class="logout"><h2 class="user_nickname"></h2><img src="#" class="user_photo" /><a data-role="button" href="#" data-rel="close" class="logout_button ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Logout</a></div><form class="userform"><h2>Login</h2><label for="email">Email:</label><input name="email" id="email" value="" data-clear-btn="true" data-mini="true" type="text"><label for="password">Password:</label><input name="password" id="password" value="" data-clear-btn="true" autocomplete="off" data-mini="true" type="password"><div class="ui-grid-a"><div class="ui-block-a"><a href="#" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-mini">Cancel</a></div><div class="ui-block-b"><a id="login_button" data-role="button" href="#" data-rel="close" class="login_button ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Login</a></div></div></form>').appendTo($(this));
-            });
-
         </script>
         <style type="text/css">
             html { height: 100% }
@@ -76,46 +77,210 @@
     <body>
         <!-- Page Home -->
         <div data-role="page" id="home">     
+            <div data-role="header">  
+                <h1>Vinciamoinsieme</h1>
+                <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
+                <a href="#add-form" data-icon="gear" data-iconpos="notext">Add</a>
+            </div>
             <div data-role="content">
                 <h2 style="text-align: center;">Vinciamoinsieme</h2>
                 <div style="text-align: center;">
                     <img alt="" src="img/logo.png" />
                 </div>
             </div>
+            <div data-role="panel" data-display="overlay" data-theme="b" id="nav-panel" >
+                <ul data-role="listview">
+                    <li data-icon="delete"><a href="#" data-rel="close">Chiudi menu</a></li>
+                    <li><a href="#results">Ultime scommesse</a></li>
+                    <li><a href="#matches">Scommetti</a></li>
+                    <li data-icon="delete"><a class="exit_btn">Esci</a></li>
+
+                </ul>
+            </div><!-- /panel -->
+            <div data-role="panel" data-position="right" data-display="reveal" data-theme="a" id="add-form" >
+                <div class="logout">
+                    <h2 class="user_nickname"></h2>
+                    <img src="#" class="user_photo" />
+                    <a data-role="button" href="#" data-rel="close" class="logout_button ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Logout</a>
+                </div>
+                <form class="userform">
+                    <h2>Login</h2>
+                    <label for="email">Email:</label>
+                    <input name="email" id="email" value="" data-clear-btn="true" data-mini="true" type="text">
+                    <label for="password">Password:</label>
+                    <input name="password" id="password" value="" data-clear-btn="true" autocomplete="off" data-mini="true" type="password">
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a"><a href="#" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-mini">Cancel</a></div>
+                        <div class="ui-block-b">
+                            <a id="login_button" data-role="button" href="#" data-rel="close" class="login_button ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Login</a></div>
+                    </div>
+                </form>
+            </div><!-- /panel -->
+            <div data-role="footer"
+                 data-position="fixed">
+                <h4>&copy;</h4>
+            </div>
         </div>
         <!-- Page Results -->
         <div data-role="page" id="results">   
+            <div data-role="header">     
+                <h1>Vinciamoinsieme</h1>
+                <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
+                <a href="#add-form" data-icon="gear" data-iconpos="notext">Add</a>
+            </div>
             <div data-role="content">
                 <h2>Ultime scommesse</h2>
                 <ul id="showList" data-role="listview" data-filter-placeholder="Cerca..."
                     data-inset="true" data-filter="true" data-input="#filter-for-listview">
                 </ul>
             </div>
+            <div data-role="panel" data-display="overlay" data-theme="b" id="nav-panel" >
+                <ul data-role="listview">
+                    <li data-icon="delete"><a href="#" data-rel="close">Chiudi menu</a></li>
+                    <li data-icon="home" data-iconpos="left"><a href="#home">Home</a></li>
+                    <li><a href="#matches">Scommetti</a></li>
+                    <li data-icon="delete"><a class="exit_btn">Esci</a></li>
+                </ul>
+            </div><!-- /panel -->
+            <div data-role="panel" data-position="right" data-display="reveal" data-theme="a" id="add-form" >
+                <div class="logout">
+                    <h2 class="user_nickname"></h2>
+                    <img src="#" class="user_photo" />
+                    <a data-role="button" href="#" data-rel="close" class="logout_button ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Logout</a>
+                </div>
+                <form class="userform">
+                    <h2>Login</h2>
+                    <label for="email">Email:</label>
+                    <input name="email" id="email" value="" data-clear-btn="true" data-mini="true" type="text">
+                    <label for="password">Password:</label>
+                    <input name="password" id="password" value="" data-clear-btn="true" autocomplete="off" data-mini="true" type="password">
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a"><a href="#" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-mini">Cancel</a></div>
+                        <div class="ui-block-b">
+                            <a id="login_button" data-role="button" href="#" data-rel="close" class="login_button ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Login</a></div>
+                    </div>
+                </form>
+            </div><!-- /panel -->
+            <div data-role="footer"
+                 data-position="fixed">
+                <h4>&copy;</h4>
+            </div>
         </div>
         <!-- Page Matches -->
         <div data-role="page" id="matches">   
+            <div data-role="header">     
+                <h1>Vinciamoinsieme</h1>
+                <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
+                <a href="#add-form" data-icon="gear" data-iconpos="notext">Add</a>
+            </div>
             <div data-role="content">
                 <h2>Prossime partite</h2>
                 <ul id="showMatchesList" data-role="listview" data-filter-placeholder="Cerca..."
                     data-inset="true" data-filter="true" data-input="#filter-for-listview">
                 </ul>
             </div>
+            <div data-role="panel" data-display="overlay" data-theme="b" id="nav-panel" >
+                <ul data-role="listview">
+                    <li data-icon="delete"><a href="#" data-rel="close">Chiudi menu</a></li>
+                    <li data-icon="home" data-iconpos="left"><a href="#home">Home</a></li>
+                    <li data-icon="delete"><a class="exit_btn">Esci</a></li>
+                </ul>
+            </div><!-- /panel -->
+            <div data-role="panel" data-position="right" data-display="reveal" data-theme="a" id="add-form" >
+                <div class="logout">
+                    <h2 class="user_nickname"></h2>
+                    <img src="#" class="user_photo" />
+                    <a data-role="button" href="#" data-rel="close" class="logout_button ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Logout</a>
+                </div>
+                <form class="userform">
+                    <h2>Login</h2>
+                    <label for="email">Email:</label>
+                    <input name="email" id="email" value="" data-clear-btn="true" data-mini="true" type="text">
+                    <label for="password">Password:</label>
+                    <input name="password" id="password" value="" data-clear-btn="true" autocomplete="off" data-mini="true" type="password">
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a"><a href="#" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-mini">Cancel</a></div>
+                        <div class="ui-block-b">
+                            <a id="login_button" data-role="button" href="#" data-rel="close" class="login_button ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Login</a></div>
+                    </div>
+                </form>
+            </div><!-- /panel -->
+            <div data-role="footer"
+                 data-position="fixed">
+                <h4>&copy;</h4>
+            </div>
         </div>
         <!-- Page Match Bet -->
         <div data-role="page" id="match_bet">   
+            <div data-role="header">     
+                <h1>Vinciamoinsieme</h1>
+                <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
+                <a href="#add-form" data-icon="gear" data-iconpos="notext">Add</a>
+            </div>
             <div data-role="content">
                 <h2 id="showMatch"></h2>
                 <div data-role="fieldcontain">
                     <fieldset data-role="controlgroup" id="bets_fieldset">
                         <div id="bets_list">
+                        <!--<input type="radio" name="radio-choice-1" id="radio-choice-1" value="choice-1" checked="checked">-->
+                        <!--<label for="radio-choice-1">1</label>-->
+                        <!--<input type="radio" name="radio-choice-2" id="radio-choice-2" value="choice-2">-->
+                        <!--<label for="radio-choice-2">X</label>-->
+                        <!--<input type="radio" name="radio-choice-3" id="radio-choice-3" value="choice-3">-->
+                        <!--<label for="radio-choice-3">2</label>-->
+                        <!--<input type="radio" name="radio-choice-4" id="radio-choice-4" value="choice-4">-->
+                        <!--<label for="radio-choice-4">UNDER 2,5</label>-->
+                        <!--<input type="radio" name="radio-choice-5" id="radio-choice-5" value="choice-5">-->
+                        <!--<label for="radio-choice-5">OVER 2,5</label>-->
+                        <!--</div>-->
                     </fieldset>
                 </div>
                 <a href="#matches" data-role="button" data-icon="arrow-l">Torna alle partite</a>
+            </div>
+            <div data-role="panel" data-display="overlay" data-theme="b" id="nav-panel" >
+                <ul data-role="listview">
+                    <li data-icon="delete"><a href="#" data-rel="close">Chiudi menu</a></li>
+                    <li data-icon="home" data-iconpos="left"><a href="#home">Home</a></li>
+                    <li data-icon="delete"><a class="exit_btn">Esci</a></li>
+                </ul>
+            </div><!-- /panel -->
+            <div data-role="panel" data-position="right" data-display="reveal" data-theme="a" id="add-form" >
+                <div class="logout">
+                    <h2 class="user_nickname"></h2>
+                    <img src="#" class="user_photo" />
+                    <a data-role="button" href="#" data-rel="close" class="logout_button ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Logout</a>
+                </div>
+                <form class="userform">
+                    <h2>Login</h2>
+                    <label for="email">Email:</label>
+                    <input name="email" id="email" value="" data-clear-btn="true" data-mini="true" type="text">
+                    <label for="password">Password:</label>
+                    <input name="password" id="password" value="" data-clear-btn="true" autocomplete="off" data-mini="true" type="password">
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a"><a href="#" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-mini">Cancel</a></div>
+                        <div class="ui-block-b">
+                            <a id="login_button" data-role="button" href="#" data-rel="close" class="login_button ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Login</a></div>
+                    </div>
+                </form>
+            </div><!-- /panel -->
+            <div data-role="footer"
+                 data-position="fixed">
+                <h4>&copy;</h4>
             </div>
         </div>
         <script>
             $("#results").bind("pagecreate", function(e) {
                 getLastResults();
+//                $('#showList').on('tap', 'li', function() {
+//                    localStorage.clear();
+//                    localStorage.setItem("showTitle",
+//                            $(this).attr('data-show-title'));
+//                    localStorage.setItem("showDescription",
+//                            $(this).attr('data-show-description'));
+//                    localStorage.setItem("showCreationDate",
+//                            $(this).attr('data-show-creation_date'));
+//                    $.mobile.changePage('#news_detail');
+//                });
             });
             var getLastResults = function() {
                 var listItem = '';
@@ -128,7 +293,9 @@
                         var date = new Date(value.created_at);
                         var date_formatted = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
                         listItem += '<li><h3><a title="' + match + bet + '">' + match + "<br />" + bet + '</a></h3><p style="text-align:right;">' + user + " @ " + date_formatted + '</p></li>';
+//listItem += "<li>test</li>"; 
                     });
+//                    listItem += "<li>test</li>"; 
                     $('#showList').append(listItem);
                     $("#showList").listview("refresh");
                 });
@@ -174,6 +341,10 @@
 
             });
 
+            //Caricamento tipologie pronostici (1,x,2,under ....)
+//            $("#match_bet").bind("pagecreate", function(e) {
+//                getBets();
+//            });
             var getBets = function() {
                 var apiURL = 'http://' + host + '/bets.json?callback=?';
                 var betsList = '<fieldset data-role="controlgroup"><legend>Scegli un pronostico:</legend>';
@@ -182,11 +353,17 @@
                         var id = value.id;
                         var title = value.title;
 
-                        betsList += '<input type="radio" name="radio-choice" id="radio-choice-' + id + '" value="choice-' + id + '" /><label for="radio-choice-' + id + '">' + title + '</label>';
+                        betsList += '<input type="radio" name="radio-choice" id="radio-choice-'+id+'" value="choice-'+id+'" /><label for="radio-choice-'+id+'">'+title+'</label>';
+//                        betsList += '<fieldset data-role="controlgroup"><legend>Choose a pet:</legend><input type="radio" name="radio-choice" id="radio-choice-1" value="choice-1" checked="checked" /><label for="radio-choice-1">Cat</label><input type="radio" name="radio-choice" id="radio-choice-2" value="choice-2"  /><label for="radio-choice-2">Dog</label></fieldset>';
 
                     });
+//                    x += '<input type="radio" name="radio-choice" id="radio-choice-1" value="choice-1" checked="checked" /><label for="radio-choice-1">Cat</label><input type="radio" name="radio-choice" id="radio-choice-2" value="choice-2"  /><label for="radio-choice-2">Dog</label></fieldset>';
                     $('#bets_list').html(betsList);
+//                    $('[type="radio"]').each(function( index ) {
+//                        $(this).checkboxradio();
+//                    });
                     $('[type="radio"]').checkboxradio();
+//                    $("#bet_id").checkboxradio("refresh");
                 });
 
             };

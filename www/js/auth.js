@@ -8,7 +8,7 @@ $(document).ready(function() {
     }
 
     $('.login_button').click(function() {
-        $.mobile.showPageLoadingMsg();
+//        $.mobile.showPageLoadingMsg();
         $.ajax({
             type: 'POST',
             dataType: 'json',
@@ -20,7 +20,7 @@ $(document).ready(function() {
 //                        }
             }
         }).success(function jsSuccess(data, textStatus, jqXHR) {
-            $.mobile.hidePageLoadingMsg();
+//            $.mobile.hidePageLoadingMsg();
             console.log(data);
             console.log(textStatus);
             console.log(jqXHR);
@@ -35,14 +35,14 @@ $(document).ready(function() {
             $('.logout').show();
             $('.userform').hide();
         }).error(function jsError(jqXHR, textStatus, errorThrown) {
-            $.mobile.hidePageLoadingMsg();
+//            $.mobile.hidePageLoadingMsg();
             var error = JSON.parse(jqXHR.responseText);
             alert(error.message);
         });
     });
 
     $('.logout_button').click(function() {
-        $.mobile.showPageLoadingMsg();
+//        $.mobile.showPageLoadingMsg();
         $.ajax({
             type: 'POST',
             dataType: 'json',
@@ -53,7 +53,7 @@ $(document).ready(function() {
 //                        }
             }
         }).success(function jsSuccess(data, textStatus, jqXHR) {
-            $.mobile.hidePageLoadingMsg();
+//            $.mobile.hidePageLoadingMsg();
             console.log(data);
             console.log(textStatus);
             console.log(jqXHR);
@@ -64,7 +64,7 @@ $(document).ready(function() {
             $('.logout').hide();
             $('.userform').show();
         }).error(function jsError(jqXHR, textStatus, errorThrown) {
-            $.mobile.hidePageLoadingMsg();
+//            $.mobile.hidePageLoadingMsg();
             var error = JSON.parse(jqXHR.responseText);
             alert(error.message);
         });

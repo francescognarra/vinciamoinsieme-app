@@ -3,8 +3,10 @@ $(document).ready(function() {
         $.mobile.changePage('index.html', 'slideUp');
         $('.user_nickname').append("Bentornato " + localStorage.getItem("nickname"));
         $('.userform').hide();
+        $('.chkauth').show();
     } else {
         $('.logout').hide();
+        $('.chkauth').hide();
     }
 
     $('.login_button').click(function() {
@@ -34,6 +36,7 @@ $(document).ready(function() {
             $('.user_photo').attr("src",localStorage.getItem("photo"));
             $('.logout').show();
             $('.userform').hide();
+            $('.chkauth').show();
         }).error(function jsError(jqXHR, textStatus, errorThrown) {
 //            $.mobile.hidePageLoadingMsg();
             var error = JSON.parse(jqXHR.responseText);
@@ -63,6 +66,7 @@ $(document).ready(function() {
             $('.user_photo').attr("src","#");
             $('.logout').hide();
             $('.userform').show();
+            $('.chkauth').hide();
         }).error(function jsError(jqXHR, textStatus, errorThrown) {
 //            $.mobile.hidePageLoadingMsg();
             var error = JSON.parse(jqXHR.responseText);

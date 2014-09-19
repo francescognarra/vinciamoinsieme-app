@@ -145,7 +145,7 @@
                             <div id="bets_list"></div>
                         </fieldset>
                     </div>
-                    <a id="do_bet" href="#">Piazza la scommessa</a>
+                    <a id="do_bet" data-role="button" href="#" class="ui-btn ui-btn-b">Piazza la scommessa</a>
                 </form>
                 <a href="#matches" data-role="button" data-icon="arrow-l">Torna alle partite</a>
             </div>
@@ -228,7 +228,7 @@
                     dataType: 'json',
                     url: 'http://' + host + '/results/create_json.json?',
                     data: {
-                        bet_id: $('input[name="bet_id"]').val(),
+                        bet_id: $('input[name="bet_id"]:checked').val(),
                         match: localStorage.getItem("showMatch"),
                         bet_container_id: localStorage.getItem("bc_id"),
                         auth_token: localStorage.getItem("auth_token")
@@ -286,7 +286,7 @@
                     $.each(data, function(key, value) {
                         var id = value.id;
                         var date = new Date(value.created_at);
-                        var date_formatted = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
+                        var date_formatted = date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear();
                         var group_name = value.group['name']
                         listItem += '<li class="ui-btn ui-btn-icon-right ui-icon-carat-r" data-bc-id="' + id + '"><h3><a href="#">' + group_name + '<br/>creata il ' + date_formatted + '</a></h3></li>';
                     });

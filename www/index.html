@@ -128,7 +128,7 @@
         <!-- Page Matches -->
         <div data-role="page" id="matches">   
             <div data-role="content">
-                <h2>Prossime partite</h2>
+                <h2>Scegli la partita</h2>
                 <ul id="showMatchesList" data-role="listview" data-filter-placeholder="Cerca..."
                     data-inset="true" data-filter="true" data-input="#filter-for-listview">
                 </ul>
@@ -177,7 +177,7 @@
         <script>
             $("#matches").bind("pagebeforeshow", function(e) {
                 getNextMatches();
-                $('#showMatchesList').on('tap', 'li', function() {
+                $('#showMatchesList').on('tap', 'li.active', function() {
                     localStorage.setItem("showMatch",
                             $(this).attr('data-show-match'));
                     $.mobile.changePage('#match_bet');
@@ -194,7 +194,11 @@
                         var home = value.home;
                         var away = value.away;
                         var result = value.result;
-                        listItem += '<li data-show-match="' + home + ' - ' + away + '"><a href="#"><h3>' + home + ' - ' + away + '</h3></a></li>';
+                        if(result.indexOf("?") == -1){
+                        listItem += '<li data-show-match="' + home + ' - ' + away + '"><h3>' + home + ' - ' + away + ' ' + result + '</h3></li>';    
+                        } else {
+                        listItem += '<li class="active" data-show-match="' + home + ' - ' + away + '"><a href="#"><h3>' + home + ' - ' + away + '</h3></a></li>';
+                    }
                     });
                     $('#showMatchesList').append(listItem);
                     $("#showMatchesList").listview("refresh");

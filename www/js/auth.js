@@ -5,6 +5,7 @@ $(document).ready(function() {
         $('.userform').hide();
         $('.chkauth').show();
     } else {
+        localStorage.clear();
         $('.logout').hide();
         $('.chkauth').hide();
     }

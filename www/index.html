@@ -30,6 +30,7 @@
 //                $('<div>').attr({'data-role': 'panel', 'data-display': 'overlay', 'data-theme': 'b', 'id': 'nav-panel'}).append('<ul data-role="listview"><li data-icon="delete"><a href="#" data-rel="close">Chiudi menu</a></li><li data-icon="home" data-iconpos="left"><a href="#home">Home</a></li><li><a href="#results">Ultime scommesse</a></li><li><a href="#matches">Scommetti</a></li><li data-icon="delete"><a class="exit_btn">Esci</a></li></ul>').appendTo($(this));
 //                $('<div>').attr({'data-role': 'panel', 'data-position': 'right', 'data-display': 'reveal', 'data-theme': 'a', 'id': 'add-form'}).append('<div class="logout"><h2 class="user_nickname"></h2><img src="#" class="user_photo" /><a data-role="button" href="#" data-rel="close" class="logout_button ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Logout</a></div><form class="userform"><h2>Login</h2><label for="email">Email:</label><input name="email" id="email" value="" data-clear-btn="true" data-mini="true" type="text"><label for="password">Password:</label><input name="password" id="password" value="" data-clear-btn="true" autocomplete="off" data-mini="true" type="password"><div class="ui-grid-a"><div class="ui-block-a"><a href="#" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-mini">Cancel</a></div><div class="ui-block-b"><a id="login_button" data-role="button" href="#" data-rel="close" class="login_button ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Login</a></div></div></form>').appendTo($(this));
                 $('.exit_btn').click(function() {
+                    localStorage.clear();
                     navigator.app.exitApp();
                 });
             });
@@ -130,7 +131,7 @@
         <!-- Page Matches -->
         <div data-role="page" id="matches">
             <div data-role="content">
-                <h2>Prossime partite</h2>
+                <h2>Scegli la partita</h2>
                 <ul id="showMatchesList" data-role="listview" data-filter-placeholder="Cerca..."
                     data-inset="true" data-filter="true" data-input="#filter-for-listview">
                 </ul>
@@ -215,7 +216,7 @@
         <script>
             $("#matches").bind("pagebeforeshow", function(e) {
                 getNextMatches();
-                $('#showMatchesList').on('tap', 'li', function() {
+                $('#showMatchesList').on('tap', 'li.active', function() {
                     localStorage.setItem("showMatch",
                             $(this).attr('data-show-match'));
                     $.mobile.changePage('#match_bet');
@@ -232,7 +233,11 @@
                         var home = value.home;
                         var away = value.away;
                         var result = value.result;
-                        listItem += '<li data-show-match="' + home + ' - ' + away + '"><a href="#"><h3>' + home + ' - ' + away + '</h3></a></li>';
+                        if(result.indexOf("?") == -1){
+                        listItem += '<li data-show-match="' + home + ' - ' + away + '"><h3>' + home + ' - ' + away + ' ' + result + '</h3></li>';    
+                        } else {
+                        listItem += '<li class="active" data-show-match="' + home + ' - ' + away + '"><a href="#"><h3>' + home + ' - ' + away + '</h3></a></li>';
+                    }
                     });
                     $('#showMatchesList').append(listItem);
                     $("#showMatchesList").listview("refresh");

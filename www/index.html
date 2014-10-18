@@ -24,14 +24,17 @@
                 $("#add-form").panel();
                 $("#nav-list").listview();
             });
-            $(document).on('pagebeforecreate', '#home, #results, #matches, #match_bet, #leagues, #bet_containers', function() {
-                $('<div>').attr({'data-role': 'header'}).append('<h1>Vinciamoinsieme</h1><a href="#nav-panel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-grid ui-corner-all">Menu</a><a href="#add-form" class="ui-btn ui-btn-right ui-btn-icon-notext ui-icon-user ui-corner-all">Add</a>').prependTo($(this));
+            $(document).on('pagebeforecreate', '#home, #results, #match_bet, #leagues, #bet_containers', function() {
+                $('<div>').attr({'data-role': 'header'}).append('<h1>Vinciamoinsieme</h1><a href="#nav-panel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-corner-all">Menu</a><a href="#add-form" class="ui-btn ui-btn-right ui-btn-icon-notext ui-icon-user ui-corner-all">Add</a>').prependTo($(this));
                 $('<div>').attr({'data-role': 'footer', 'data-position': 'fixed'}).append('<h4>&copy;</h4>').appendTo($(this));
 //                $('<div>').attr({'data-role': 'panel', 'data-display': 'overlay', 'data-theme': 'b', 'id': 'nav-panel'}).append('<ul data-role="listview"><li data-icon="delete"><a href="#" data-rel="close">Chiudi menu</a></li><li data-icon="home" data-iconpos="left"><a href="#home">Home</a></li><li><a href="#results">Ultime scommesse</a></li><li><a href="#matches">Scommetti</a></li><li data-icon="delete"><a class="exit_btn">Esci</a></li></ul>').appendTo($(this));
 //                $('<div>').attr({'data-role': 'panel', 'data-position': 'right', 'data-display': 'reveal', 'data-theme': 'a', 'id': 'add-form'}).append('<div class="logout"><h2 class="user_nickname"></h2><img src="#" class="user_photo" /><a data-role="button" href="#" data-rel="close" class="logout_button ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Logout</a></div><form class="userform"><h2>Login</h2><label for="email">Email:</label><input name="email" id="email" value="" data-clear-btn="true" data-mini="true" type="text"><label for="password">Password:</label><input name="password" id="password" value="" data-clear-btn="true" autocomplete="off" data-mini="true" type="password"><div class="ui-grid-a"><div class="ui-block-a"><a href="#" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-b ui-mini">Cancel</a></div><div class="ui-block-b"><a id="login_button" data-role="button" href="#" data-rel="close" class="login_button ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Login</a></div></div></form>').appendTo($(this));
                 $('.exit_btn').click(function() {
                     navigator.app.exitApp();
                 });
+            });
+            $(document).on('pagebeforecreate', '#matches, #ranking', function() {
+                $('<div>').attr({'data-role': 'header'}).append('<h1>Vinciamoinsieme</h1><a href="#nav-panel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-corner-all">Menu</a><a href="#add-form" class="ui-btn ui-btn-right ui-btn-icon-notext ui-icon-user ui-corner-all">Add</a>').prependTo($(this));
             });
         </script>
         <script type="text/javascript" src="phonegap.js"></script>
@@ -125,7 +128,7 @@
             </div>
         </div>
         <!-- Page Matches -->
-        <div data-role="page" id="matches">   
+        <div data-role="page" id="matches">
             <div data-role="content">
                 <h2>Prossime partite</h2>
                 <ul id="showMatchesList" data-role="listview" data-filter-placeholder="Cerca..."
@@ -133,6 +136,42 @@
                 </ul>
                 <a href="#leagues" data-role="button" data-icon="arrow-l">Torna ai campionati</a>
             </div>
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" data-iconpos="left">
+                    <ul>
+                        <li><a href="#matches" data-icon="star" class="ui-btn-active ui-state-persist">Partite</a></li>
+                        <li><a href="#ranking" data-icon="bullets">Classifica</a></li>
+                    </ul>
+                </div><!-- /navbar -->
+            </div><!-- /footer -->
+        </div>
+        <!-- Page Ranking -->
+        <div data-role="page" id="ranking">
+            <div data-role="content">
+                <h2>Classifica</h2>
+                <table class="table-stripe">
+                    <thead>
+                    <tr>
+                        <th>Pos</th>
+                        <th>Squadra</th>
+                        <th>Punti</th>
+                        <th>GF</th>
+                        <th>GS</th>
+                    </tr>
+                    </thead>
+                    <tbody id="rankingBody">
+                    </tbody>
+                </table>
+                <a href="#leagues" data-role="button" data-icon="arrow-l">Torna ai campionati</a>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" data-iconpos="left">
+                    <ul>
+                        <li><a href="#matches" data-icon="star">Partite</a></li>
+                        <li><a href="#ranking" data-icon="bullets" class="ui-btn-active ui-state-persist">Classifica</a></li>
+                    </ul>
+                </div><!-- /navbar -->
+            </div><!-- /footer -->
         </div>
         <!-- Page Match Bet -->
         <div data-role="page" id="match_bet">   
@@ -200,6 +239,8 @@
                 });
             };
 
+
+
             $("#match_bet").bind("pagebeforeshow", function(e) {
                 var showMatch = localStorage.getItem("showMatch");
                 $('#showMatch').html(showMatch);
@@ -243,6 +284,27 @@
                     alert(error.message);
                 });
             });
+        </script>
+        <script>
+            $("#ranking").bind("pagebeforeshow", function(e) {
+                getRanking();
+            });
+            var getRanking = function() {
+                $('#rankingBody').html("");
+                var rows = '';
+                var apiURL = 'http://' + host + '/leagues/' + localStorage.getItem("league_id") + '/ranking.json?callback=?';
+                $.getJSON(apiURL, function(data) {
+                    $.each(data, function(key, value) {
+                        var position = value.position;
+                        var team = value.team;
+                        var points = value.points;
+                        var gf = value.gf;
+                        var gs = value.gs;
+                        rows += '<tr><td>'+position+'</td><td>'+team+'</td><td>'+points+'</td><td>'+gf+'</td><td>'+gs+'</td></tr>';
+                    });
+                    $('#rankingBody').append(rows);
+                });
+            };
         </script>
         <script>
             $("#leagues").bind("pagecreate", function(e) {

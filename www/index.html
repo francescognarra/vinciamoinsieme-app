@@ -45,7 +45,7 @@
 
             var host = "www.vinciamoinsieme.com";
 //            var host = "162.248.141.121:3000";
-//            var host = "localhost:3001";
+//            var host = "localhost:3000";
 
             $(document).on({
                 ajaxStart: function() {
@@ -121,6 +121,11 @@
         <!-- Page Leagues -->
         <div data-role="page" id="leagues">   
             <div data-role="content">
+                <div data-role="collapsible" data-theme="b" data-mini="true">
+                    <h3>Guarda i pronostici già fatti</h3>
+                    <ul class="bc_results" data-role="listview" data-inset="true">
+                    </ul>
+                </div>
                 <h2>Scegli il Campionato</h2>
                 <ul id="showLeagueList" data-role="listview" data-filter-placeholder="Cerca..."
                     data-inset="true" data-filter="true" data-input="#filter-for-listview">
@@ -131,6 +136,11 @@
         <!-- Page Matches -->
         <div data-role="page" id="matches">
             <div data-role="content">
+                <div data-role="collapsible" data-theme="b" data-mini="true">
+                    <h3>Guarda i pronostici già fatti</h3>
+                    <ul class="bc_results" data-role="listview" data-inset="true">
+                    </ul>
+                </div>
                 <h2>Scegli la partita</h2>
                 <ul id="showMatchesList" data-role="listview" data-filter-placeholder="Cerca..."
                     data-inset="true" data-filter="true" data-input="#filter-for-listview">
@@ -320,6 +330,9 @@
                     $.mobile.changePage('#matches');
                 });
             });
+            $("#leagues").bind("pagebeforeshow", function(e) {
+                getBetContainerResults();
+            });
             var getLeagues = function() {
                 var listItem = '';
                 var apiURL = 'http://' + host + '/leagues.json?callback=?';
@@ -363,6 +376,20 @@
             };
 
 
+        </script>
+        <script>
+            var getBetContainerResults = function() {
+                var listItem = '';
+                $('.bc_results').html("");
+                var apiURL = 'http://' + host + '/bet_containers/'+localStorage.getItem("bc_id")+'.json?callback=?&auth_token=' + localStorage.getItem("auth_token");
+                $.getJSON(apiURL, function(data) {
+                        $.each(data.results, function(key, value){
+                            listItem += '<li><p>' + value.result['match'] + value.result['bet']['title']+'</p><p style="text-align: right">'+value.result['user']['nickname']+'</p></li>';
+                        })
+                    $('.bc_results').append(listItem);
+                    $(".bc_results").listview("refresh");
+                });
+            };
         </script>
     </body>
 </html>

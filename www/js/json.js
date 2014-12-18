@@ -1,11 +1,51 @@
-$("#results").bind("pagecreate", function (e) {
+$("#home").one("pagebeforeshow", function(e) {
+    getSlideResources();
+});
+
+var getSlideResources = function() {
+    $('.slides').html("");
+//    var listNewsItem = '';
+    var slides = '';
+    var apiURL = 'http://' + host + '/results.json?callback=?';
+    $.getJSON(apiURL, function(data) {
+        $.mobile.loading('show');
+        $.each(data, function(key, value) {
+            var match = value.match;
+            var bet = value.bet['title'];
+            var user = value.user['nickname'];
+            var user_photo = value.user['photo_url'];
+            var date = new Date(value.created_at);
+            var result = value.result;
+            $('.slides').append('<li><img style="max-width: 100px; margin-right: 20px;" src="http://' + host + user_photo + '" align="left" /><h4>' + time_formatted(date) + '</h4><br /><p style="text-align:center;"><strong>' + match + " " + bet + '</strong></p></li>');
+        });
+        $.mobile.loading('hide');
+        $('.flexslider').flexslider({
+        animation: "slide",
+        controlNav: false,
+        prevText: "",
+        nextText: ""
+    });
+    });
+
+};
+
+$("#results").bind("pagecreate", function(e) {
     getLastResults();
 });
-var getLastResults = function () {
+
+$('#results').bind("pageinit", function(event) {
+    $(".iscroll-wrapper").bind({
+        iscroll_onpulldown: refreshResults
+    });
+});
+function refreshResults(event, data) {
+    getLastResults();
+}
+var getLastResults = function() {
     var listItem = '';
     var apiURL = 'http://' + host + '/results.json?callback=?';
-    $.getJSON(apiURL, function (data) {
-        $.each(data, function (key, value) {
+    $.getJSON(apiURL, function(data) {
+        $.each(data, function(key, value) {
             var match = value.match;
             var bet = value.bet['title'];
             var user = value.user['nickname'];
@@ -27,21 +67,21 @@ var getLastResults = function () {
     });
 };
 
-$("#matches").bind("pagebeforeshow", function (e) {
+$("#matches").bind("pagebeforeshow", function(e) {
     getBetContainerResults();
     getNextMatches();
-    $('#showMatchesList').on('tap', 'li.active', function () {
+    $('#showMatchesList').on('tap', 'li.active', function() {
         localStorage.setItem("showMatch",
-            $(this).attr('data-show-match'));
-        $.mobile.changePage('#match_bet', { transition: "none" });
+                $(this).attr('data-show-match'));
+        $.mobile.changePage('#match_bet', {transition: "none"});
     });
 });
-var getNextMatches = function () {
+var getNextMatches = function() {
     $('#showMatchesList').html("");
     var listItem = '';
     var apiURL = 'http://' + host + '/leagues/' + localStorage.getItem("league_id") + '/next_matches.json?callback=?';
-    $.getJSON(apiURL, function (data) {
-        $.each(data, function (key, value) {
+    $.getJSON(apiURL, function(data) {
+        $.each(data, function(key, value) {
             var day = value.day;
             var time = value.time;
             var home = value.home;
@@ -59,18 +99,18 @@ var getNextMatches = function () {
 };
 
 
-$("#match_bet").bind("pagebeforeshow", function (e) {
+$("#match_bet").bind("pagebeforeshow", function(e) {
     var showMatch = localStorage.getItem("showMatch");
     $('#showMatch').html(showMatch);
     getBets();
 
 });
 
-var getBets = function () {
+var getBets = function() {
     var apiURL = 'http://' + host + '/bets.json?callback=?';
     var betsList = '<fieldset data-role="controlgroup"><legend>Scegli un pronostico:</legend>';
-    $.getJSON(apiURL, function (data) {
-        $.each(data, function (key, value) {
+    $.getJSON(apiURL, function(data) {
+        $.each(data, function(key, value) {
             var id = value.id;
             var title = value.title;
             betsList += '<input type="radio" name="bet_id" id="radio-choice-' + id + '" value="' + id + '" /><label for="radio-choice-' + id + '">' + title + '</label>';
@@ -81,7 +121,7 @@ var getBets = function () {
 
 };
 
-$('#do_bet').click(function () {
+$('#do_bet').click(function() {
     $.ajax({
         type: 'POST',
         dataType: 'json',
@@ -96,22 +136,22 @@ $('#do_bet').click(function () {
         console.log(data);
         console.log(textStatus);
         console.log(jqXHR);
-        $.mobile.changePage('#matches', { transition: "none" });
+        $.mobile.changePage('#matches', {transition: "none"});
     }).error(function jsError(jqXHR, textStatus, errorThrown) {
         var error = JSON.parse(jqXHR.responseText);
         alert(error.message);
     });
 });
 
-$("#ranking").bind("pagebeforeshow", function (e) {
+$("#ranking").bind("pagebeforeshow", function(e) {
     getRanking();
 });
-var getRanking = function () {
+var getRanking = function() {
     $('#rankingBody').html("");
     var rows = '';
     var apiURL = 'http://' + host + '/leagues/' + localStorage.getItem("league_id") + '/ranking.json?callback=?';
-    $.getJSON(apiURL, function (data) {
-        $.each(data, function (key, value) {
+    $.getJSON(apiURL, function(data) {
+        $.each(data, function(key, value) {
             var position = value.position;
             var team = value.team;
             var points = value.points;
@@ -123,22 +163,22 @@ var getRanking = function () {
     });
 };
 
-$("#leagues").bind("pagecreate", function (e) {
+$("#leagues").bind("pagecreate", function(e) {
     getLeagues();
-    $('#showLeagueList').on('tap', 'li', function () {
+    $('#showLeagueList').on('tap', 'li', function() {
         localStorage.setItem("league_id",
-            $(this).attr('data-league-id'));
-        $.mobile.changePage('#matches', { transition: "none" });
+                $(this).attr('data-league-id'));
+        $.mobile.changePage('#matches', {transition: "none"});
     });
 });
-$("#leagues").bind("pagebeforeshow", function (e) {
+$("#leagues").bind("pagebeforeshow", function(e) {
     getBetContainerResults();
 });
-var getLeagues = function () {
+var getLeagues = function() {
     var listItem = '';
     var apiURL = 'http://' + host + '/leagues.json?callback=?';
-    $.getJSON(apiURL, function (data) {
-        $.each(data, function (key, value) {
+    $.getJSON(apiURL, function(data) {
+        $.each(data, function(key, value) {
             var id = value.id;
             var title = value.title;
             var logo = value.logo_url;
@@ -149,19 +189,19 @@ var getLeagues = function () {
     });
 };
 
-$("#bet_containers").bind("pagecreate", function (e) {
+$("#bet_containers").bind("pagecreate", function(e) {
     getBetContainers();
-    $('#showBetContainerList').on('tap', 'li', function () {
+    $('#showBetContainerList').on('tap', 'li', function() {
         localStorage.setItem("bc_id",
-            $(this).attr('data-bc-id'));
-        $.mobile.changePage('#leagues', { transition: "none" });
+                $(this).attr('data-bc-id'));
+        $.mobile.changePage('#leagues', {transition: "none"});
     });
 });
-var getBetContainers = function () {
+var getBetContainers = function() {
     var listItem = '';
     var apiURL = 'http://' + host + '/bet_containers.json?callback=?&auth_token=' + localStorage.getItem("auth_token");
-    $.getJSON(apiURL, function (data) {
-        $.each(data, function (key, value) {
+    $.getJSON(apiURL, function(data) {
+        $.each(data, function(key, value) {
             var id = value.id;
             var date = new Date(value.created_at);
             var date_formatted = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
@@ -173,15 +213,27 @@ var getBetContainers = function () {
     });
 };
 
-var getBetContainerResults = function () {
+var getBetContainerResults = function() {
     var listItem = '';
     $('.bc_results').html("");
     var apiURL = 'http://' + host + '/bet_containers/' + localStorage.getItem("bc_id") + '.json?callback=?&auth_token=' + localStorage.getItem("auth_token");
-    $.getJSON(apiURL, function (data) {
-        $.each(data.results, function (key, value) {
+    $.getJSON(apiURL, function(data) {
+        $.each(data.results, function(key, value) {
             listItem += '<li><p>' + value.result['match'] + '&nbsp;' + value.result['bet']['title'] + '</p><p style="text-align: right">' + value.result['user']['nickname'] + '</p></li>';
         })
         $('.bc_results').append(listItem);
         $(".bc_results").listview("refresh");
     });
 };
+
+//function to format dates
+function date_formatted(date) {
+    var _date = new Date(date);
+    return _date.getDate() + "/" + _date.getMonth() + "/" + _date.getFullYear();
+}
+
+//function to format dates
+function time_formatted(time) {
+    var _time = new Date(time);
+    return _time.getDate() + "/" + _time.getMonth() + "/" + _time.getFullYear() + " " + _time.getHours() + ":" + _time.getMinutes();
+}

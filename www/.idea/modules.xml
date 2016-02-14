@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../../ring_app/.idea/ring_app.iml" filepath="$PROJECT_DIR$/../../ring_app/.idea/ring_app.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/www.iml" filepath="$PROJECT_DIR$/.idea/www.iml" />
     </modules>
   </component>
 </project>
-
